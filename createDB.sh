@@ -1,5 +1,4 @@
 #! /bin/bash
-clear -x
 read -p "enter the name of the database you want to create : " databaseName
 
 while ! [[ $databaseName =~ ^([a-zA-Z])[a-zA-Z0-9\w_-]*([a-zA-Z0-9])$ ]]; do
@@ -12,10 +11,16 @@ while ! [[ $databaseName =~ ^([a-zA-Z])[a-zA-Z0-9\w_-]*([a-zA-Z0-9])$ ]]; do
 
 done
 echo $databaseName
+if [ ! -d "databases" ];then
+mkdir "./databases"
+fi
 
 if [ ! -d "$databaseName" ]; then
-    mkdir "$databaseName"
+    mkdir "./databases/$databaseName"
     echo "Database \"$databaseName\" created!"
+    source main_menu.sh
 else
     echo "Database \"$databaseName\" already exists."
+    source createDB.sh
 fi
+    
