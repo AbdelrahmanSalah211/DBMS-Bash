@@ -15,7 +15,7 @@ if [ ! -d "databases" ];then
 mkdir "./databases"
 fi
 
-if [ ! -d "$databaseName" ]; then
+if [  ! -d "./databases/$databaseName" ]; then
     mkdir "./databases/$databaseName"
     echo "Database \"$databaseName\" created!"
     touch "./databases/$databaseName/metadata"
