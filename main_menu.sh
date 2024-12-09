@@ -1,25 +1,17 @@
 #!/bin/bash
 
-select choice in "Create Database" "List Databases" "Connect To Database" "Drop Database" Exit
+select choice in createDatabase listDBs exit
 do
   case $choice in
-    "Create Database") 
+    createDatabase) 
       source createDB.sh
       break
       ;;
-    "List Databases") 
+    listDBs) 
       source listDBS.sh
       break
       ;;
-    "Connect To Database")
-      source connectDB.sh
-      break
-      ;;
-    "Drop Database")
-      source dropDB.sh
-      break
-      ;;
-    Exit) 
+    exit) 
       echo "Exiting the program."
       break
       ;;
