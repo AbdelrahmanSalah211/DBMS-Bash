@@ -1,5 +1,6 @@
 #!/bin/bash
-
+while true; do
+    
 select choice in "Create Database" "List Databases" "Connect To Database" "Drop Database" Exit
 do
   case $choice in
@@ -21,11 +22,12 @@ do
       ;;
     Exit) 
       echo "Exiting the program."
-      break
+      exit 0
       ;;
     *) 
       echo "$REPLY is not one of the choices."
       echo "Try again."
       ;;
   esac
+done
 done
