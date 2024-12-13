@@ -11,4 +11,3 @@ echo "Database \"$dropDB\" does not exsit."
 fi
 
 echo " "
-source main_menu.sh

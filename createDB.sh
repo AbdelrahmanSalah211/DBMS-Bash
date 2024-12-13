@@ -19,9 +19,9 @@ if [ ! -d "$databaseName" ]; then
     mkdir "./databases/$databaseName"
     echo "Database \"$databaseName\" created!"
     touch "./databases/$databaseName/metadata"
-    source main_menu.sh
+    #source main_menu.sh
 else
     echo "Database \"$databaseName\" already exists."
-    source createDB.sh
+    #source createDB.sh
 fi
     
