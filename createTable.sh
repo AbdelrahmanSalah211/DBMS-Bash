@@ -16,7 +16,7 @@ if [ ! -f "databases/$1/$tableName.txt" ]
 then
     touch "./databases/$1/$tableName.txt"
     
-    read -p "enter number of columns in $tableName table" colNum
+    read -p "enter number of columns in $tableName table: " colNum
     
     counter=0
     
