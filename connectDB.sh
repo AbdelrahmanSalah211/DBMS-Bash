@@ -1,6 +1,9 @@
 #!/bin/bash
 
-read -p "enter name of database you want to connect to: " databaseName
+databaseName=$1
+if [ -z "$databaseName" ]; then
+  read -p "Enter the name of the database you want to connect to: " databaseName
+fi
 
 if [ ! -d "databases/$databaseName" ];
 then
@@ -23,7 +26,7 @@ do
             ;;
         "Drop Table")
             echo You chose to drop a table.
-            #source dropTable.sh
+            source dropTable.sh $databaseName
             ;;
         "Insert into Table")
             echo You chose to insert into a table.
@@ -35,7 +38,7 @@ do
             ;;
         "Delete from Table")
             echo You chose to delete from a table.
-            #source deleteTable.sh
+            source deleteFromTable.sh $databaseName
             ;;
         "Update Table")
             echo You chose to update table.
