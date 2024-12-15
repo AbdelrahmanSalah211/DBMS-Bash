@@ -9,10 +9,12 @@ do
       break
       ;;
     "List Databases") 
+      clear
       source listDBS.sh
       break
       ;;
     "Connect To Database")
+      clear
       source connectDB.sh
       break
       ;;

@@ -20,7 +20,7 @@ then
     
     counter=0
     
-    metadataFile="databases/$1/metadata"
+    metadataFile="databases/$1/metadata.txt"
     
     metadata="$tableName|"
 
