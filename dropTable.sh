@@ -16,7 +16,7 @@ done
 
 echo $1 asdasd
 tableFile="./databases/$1/$tableName.txt"
-metaDataFile="./databases/$1/metadata.txt"
+metaDataFile="./databases/$1/metadata"
 echo $tableFile
 echo $metaDataFile
 
@@ -43,7 +43,7 @@ fi
     if [ $answer != "y" ]; then
         flag=false
         clear
-      source connectDB.sh $1
+    #   source connectDB.sh $1
 
     fi
 
