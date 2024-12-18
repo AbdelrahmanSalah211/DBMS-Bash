@@ -47,6 +47,17 @@ then
     done
     
     metadata=${metadata%,}
+
+    while true; do
+        read -p "enter the name of attribute to be primary key choose from ${!attributes[*]}: " primaryKey
+
+        if [[ -n "${attributes[$primaryKey]}" ]]; then
+            metadata+="|PK:$primaryKey"
+            break
+        else
+            echo "invalid primary kay. \"$primaryKey\". choose from ${!attributes[*]}"
+        fi
+    done
     
     echo "$metadata" >> "$metadataFile"
     echo "$tableName table is created"
