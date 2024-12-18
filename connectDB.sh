@@ -34,7 +34,7 @@ do
             ;;
         "Select from Table")
             echo You chose to select from a table.
-            #source selectTable.sh
+            source selectTable.sh $databaseName
             ;;
         "Delete from Table")
             echo You chose to delete from a table.
