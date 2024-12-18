@@ -2,7 +2,7 @@
 
 databaseName=$1
 if [ -z "$databaseName" ]; then
-  read -p "Enter the name of the database you want to connect to: " databaseName
+    read -p "Enter the name of the database you want to connect to: " databaseName
 fi
 
 if [ ! -d "databases/$databaseName" ];
@@ -30,7 +30,7 @@ do
             ;;
         "Insert into Table")
             echo You chose to insert into a table.
-            #source insertTable.sh
+            source insertTable.sh $databaseName
             ;;
         "Select from Table")
             echo You chose to select from a table.

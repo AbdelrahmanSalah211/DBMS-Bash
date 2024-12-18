@@ -1,3 +1,5 @@
+#!/bin/bash
+
 flag=true
 while $flag; do
     read -p "enter the name of the table you want to drop : " tableName
