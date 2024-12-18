@@ -79,10 +79,10 @@ fi
 appendData=""
 for attr in "${attributeType[@]}"; do
     attrName=$(echo "$attr" | cut -d ':' -f1)
-    appendData+="${userValues[$attrName]},"
+    appendData+="${userValues[$attrName]}:"
 done
 
-appendData=${appendData%,}
+appendData=${appendData%:}
 
 echo "$appendData" >> "$tableFile"
 echo "Data successfully inserted into table \"$tableName\"."
