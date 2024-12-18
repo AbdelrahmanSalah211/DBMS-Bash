@@ -45,7 +45,7 @@ fi
     if [ $answer != "y" ]; then
         flag=false
         clear
-      source connectDB.sh $1
+    #   source connectDB.sh $1
 
     fi
 

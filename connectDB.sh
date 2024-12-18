@@ -42,7 +42,7 @@ do
             ;;
         "Update Table")
             echo You chose to update table.
-            #source updateTable.sh
+            source updateTable.sh $databaseName
             ;;
         "exit")
             echo You chose to exit.
