@@ -1,3 +1,5 @@
+#!/bin/bash
+
 flag=true
 while $flag; do
     read -p "enter the name of the table you want to drop : " tableName
@@ -16,7 +18,7 @@ done
 
 echo $1 asdasd
 tableFile="./databases/$1/$tableName.txt"
-metaDataFile="./databases/$1/metadata.txt"
+metaDataFile="./databases/$1/metadata"
 echo $tableFile
 echo $metaDataFile
 
