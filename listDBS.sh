@@ -1,13 +1,10 @@
 #! /bin/bash
 
 database="./databases"
-if [ ! -d "$database"  ];then
-echo "No databases created yet"
-
-
+if [ ! -d "$database"  ] || [ -z "$(ls -A "$database")" ];then
+    echo "No databases created yet"
 else 
-    echo " the databases are  exiting : "
-   ls "$database"
+    echo "The existing databases are: "
+    ls "$database"
     echo " " 
-
 fi
