@@ -1,25 +1,13 @@
 #!/bin/bash
-<<<<<<< HEAD
-
-select choice in createDatabase listDBs exit
-=======
 while true; do
     
 select choice in "Create Database" "List Databases" "Connect To Database" "Drop Database" Exit
->>>>>>> origin/master
 do
   case $choice in
-    createDatabase) 
+    "Create Database") 
       source createDB.sh
       break
       ;;
-<<<<<<< HEAD
-    listDBs) 
-      source listDBS.sh
-      break
-      ;;
-    exit) 
-=======
     "List Databases") 
       clear
       source listDBS.sh
@@ -35,7 +23,6 @@ do
       break
       ;;
     Exit) 
->>>>>>> origin/master
       echo "Exiting the program."
       exit 0
       ;;
@@ -44,9 +31,5 @@ do
       echo "Try again."
       ;;
   esac
-<<<<<<< HEAD
-done
-=======
 done
 done
->>>>>>> origin/master
