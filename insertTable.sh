@@ -22,7 +22,7 @@ pkInd=-1
 for i in "${!attributeType[@]}"; do
     attrName=$(echo "${attributeType[$i]}" | cut -d ':' -f1)
     if [[ "$attrName" == "$primaryKey" ]]; then
-        pkInd=$((i+1))
+        pkInd=$i
         break
     fi
 done
@@ -71,7 +71,15 @@ done
 
 pkValue=${userValues[$primaryKey]}
 
-if cut -d',' -f"$pkInd" "$tableFile" | grep -qx "$pkValue"; then
+isDuplicate=false
+while IFS=: read -r -a values; do
+    if [[ "${values[$pkInd]}" == "$pkValue" ]]; then
+        isDuplicate=true
+        break
+    fi
+done < "$tableFile"
+
+if [[ "$isDuplicate" == true ]]; then
     echo "Error: Duplicate primary key \"$pkValue\" found in column \"$primaryKey\"."
     return
 fi
