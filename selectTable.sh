@@ -1,6 +1,8 @@
 #!/bin/bash
 
-read -p "Enter table name: " tableName
+flag=true
+while $flag; do
+    read -p "Enter table name: " tableName
 
 tableFile="databases/$1/$tableName.txt"
 metaFile="databases/$1/metadata"
@@ -126,10 +128,16 @@ while IFS= read line; do
         
         case $operator in
             "=")  [ "${record[$conditionColIndex]}" = "$conditionValue" ] || continue ;;
-            "<=") [ "${record[$conditionColIndex]}" -le "$conditionValue" ] || continue ;;
-            ">=") [ "${record[$conditionColIndex]}" -ge "$conditionValue" ] || continue ;;
-            "<")  [ "${record[$conditionColIndex]}" -lt "$conditionValue" ] || continue ;;
-            ">")  [ "${record[$conditionColIndex]}" -gt "$conditionValue" ] || continue ;;
+            # "<=") [ "${record[$conditionColIndex]}" -le "$conditionValue" ] || continue ;;
+            # ">=") [ "${record[$conditionColIndex]}" -ge "$conditionValue" ] || continue ;; #ineger comparison
+            # "<")  [ "${record[$conditionColIndex]}" -lt "$conditionValue" ] || continue ;;
+            # ">")  [ "${record[$conditionColIndex]}" -gt "$conditionValue" ] || continue ;;
+            
+            "<=") echo "${record[$conditionColIndex]} <= $conditionValue" | bc -l | grep -q 1 || continue ;; #float  and  integer comparison
+            ">=") echo "${record[$conditionColIndex]} >= $conditionValue" | bc -l | grep -q 1 || continue ;;
+            "<")  echo "${record[$conditionColIndex]} < $conditionValue" | bc -l | grep -q 1 || continue ;;
+            ">")  echo "${record[$conditionColIndex]} > $conditionValue" | bc -l | grep -q 1 || continue ;;
+            *) echo "Invalid operator: $operator"; exit 1 ;;
         esac
     fi
 
@@ -157,3 +165,10 @@ while IFS= read line; do
         echo "$result"
     fi
 done < "$tableFile"
+read -p "Do you want to continue? (y/n): " continue
+if [ "$continue" = "n" ]; then
+    flag=false
+    clear
+fi
+
+done

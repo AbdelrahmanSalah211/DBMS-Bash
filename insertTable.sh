@@ -1,6 +1,8 @@
 #!/bin/bash
 
-read -p "Enter the name of table you want to insert into: " tableName
+flag=true
+while $flag; do
+    read -p "Enter the name of table you want to insert into: " tableName
 
 tableFile="databases/$1/${tableName}.txt"
 metadataFile="databases/$1/metadata"
@@ -94,3 +96,15 @@ appendData=${appendData%:}
 
 echo "$appendData" >> "$tableFile"
 echo "Data successfully inserted into table \"$tableName\"."
+
+read -p "Do you want to insert more data into \"$tableName\"? (y/n): " choice
+
+if [[ "$choice" != "y" ]]; then
+    flag=false
+    clear
+    # back to main menu
+    
+    break
+
+fi
+done
