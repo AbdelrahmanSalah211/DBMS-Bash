@@ -120,6 +120,12 @@ primaryKeyDataType=$(grep "^${tableName}|" "$metaDataFile" | awk -F"|" '{
                                     continue
                                 fi
                                 ;;
+                            float)
+                                if ! [[ $newValue =~ ^[0-9]+(\.[0-9]+)?$ ]]; then
+                                    echo "invalid input. please enter a float value."
+                                    continue
+                                fi
+                                ;;
                             *)
                                 echo "Unsupported data type: $primaryKeyDataType"
                                 continue
