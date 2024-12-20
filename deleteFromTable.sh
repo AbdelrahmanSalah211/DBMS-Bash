@@ -28,12 +28,45 @@ fi
 tableExit=$(grep "^${tableName}|" "${metaDataFile}" )
     if [ -n "${tableExit}" ];then
     
-    primaryKeyField=$(grep "^${tableName}|" "$metaDataFile" | cut -d "|" -f 2 | cut -d "," -f 1 | cut -d ":" -f 1)
-    primaryKeyDataType=$(grep "^${tableName}|" "${metaDataFile}" | cut -d "|" -f 2 | cut -d "," -f 1 | cut -d ":" -f 2 )
+  primaryKeyField=$(grep "^${tableName}|" "$metaDataFile" | awk -F"|" '{split($3,pk,":"); print pk[2]}')
 
-    echo "${primaryKeyDataType}"
+# Method 2: Extract data type for the PK field
+primaryKeyDataType=$(grep "^${tableName}|" "$metaDataFile" | 
+awk -F"|" '{
+        fields=$2;
+        split($3,pk,":");
+        pk_name=pk[2];
+        
+        split(fields,field_array,",");
+        
+        # Look for the field matching PK name
+        for(i in field_array) {
+            split(field_array[i],field,":");
+            if(field[1] == pk_name) {
+                print field[2];
+                exit;
+            }
+        }
+    }')
 
-    read -p "please enter the primary key with value {$primaryKeyField} amd  data type {$primaryKeyDataType}:" valueRow
+ primaryKeyPosition=$(echo "$tableExit" | awk -F"|" '{
+        fields=$2;
+        split($3,pk,":");
+        pk_name=pk[2];
+        split(fields,field_array,",");primaryKeyPosition
+        for (i in field_array) {
+            split(field_array[i],field,":");
+            if (field[1] == pk_name) {
+                print i; # Output the position (1-based index)
+                exit;
+            }
+        }
+    }')
+
+        echo "${primaryKeyDataType}"
+        echo "${primaryKeyField}"
+
+    read -p "please enter the primary key with value {$primaryKeyField} and  data type {$primaryKeyDataType}:" valueRow
        case "$primaryKeyDataType" in
             int)
                 if ! [[ $valueRow =~ ^[0-9]$ ]]; then
@@ -42,7 +75,7 @@ tableExit=$(grep "^${tableName}|" "${metaDataFile}" )
                 fi
                 ;;
             string)
-                if ! [[ $valueRow =~ ^[a-zA-Z]$ ]]; then
+                if ! [[ $valueRow =~ ^[a-zA-Z]+$ ]]; then
                     echo "invalid input. please enter a string (letters only)."
                     continue
                 fi
@@ -52,7 +85,13 @@ tableExit=$(grep "^${tableName}|" "${metaDataFile}" )
                 continue
                 ;;
         esac
-    valueData=$(awk -F ":" -v key=$valueRow ' $1 == key  { print $0 } ' $dataFile)
+   valueData=$(awk -F ":" -v key=$valueRow -v pkPos=$primaryKeyPosition '{
+        split($0,fields,":");
+        if (fields[pkPos] == key) {
+            print $0;
+        }
+    }' $dataFile)
+
 
     if [ -n "$valueData" ]; then
         echo "is this the data you want to delete ?  ${valueData}" 
@@ -74,7 +113,7 @@ fi
     if [ $answer != "y" ]; then
         flag=false
         clear
-      source connectDB.sh $1
+    #   source connectDB.sh $1
 
     fi
 done
